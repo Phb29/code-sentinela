@@ -131,6 +131,10 @@ public class SandboxDeTestes {
             return fim("dependencias", false, null, "Erro ao preparar o script: " + e.getMessage(), inicio);
         } finally {
             if (script != null) script.toFile().delete();
+            // No Linux, o que o container criou (target/) pertence ao root e o usuário normal não consegue
+            // apagar. Quem criou apaga: um container rápido remove a pasta target.
+            executor.rodar(docker("sentinela-limpeza-" + UUID.randomUUID().toString().substring(0, 8), pasta, false,
+                    "rm", "-rf", "/projeto/target"), null, Duration.ofSeconds(60), null);
         }
     }
 
@@ -148,6 +152,9 @@ public class SandboxDeTestes {
                 "--cpus", cfg.cpus(),
                 "--pids-limit", "512",
                 "--cap-drop", "ALL",
+                // Única capacidade devolvida: no Linux, sem ela o root do container não entra na pasta do PR
+                // (que pertence ao usuário da máquina, com permissão 700). Vale só dentro do container.
+                "--cap-add", "DAC_OVERRIDE",
                 "--security-opt", "no-new-privileges",
                 "-v", pasta.toAbsolutePath() + ":/projeto",
                 "-v", cfg.volumeCache() + ":/root/.m2",

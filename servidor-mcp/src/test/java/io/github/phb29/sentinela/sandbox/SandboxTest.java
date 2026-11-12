@@ -17,7 +17,7 @@ class SandboxTest {
     void etapaDeTestesRodaSemRedeEComLimites() {
         List<String> cmd = sandbox.docker("x", Path.of("/tmp/pr"), false, "mvn", "-o", "test");
         assertThat(String.join(" ", cmd))
-                .contains("--network none", "--memory 2g", "--cpus 2", "--pids-limit 512", "--cap-drop ALL",
+                .contains("--network none", "--memory 2g", "--cpus 2", "--pids-limit 512", "--cap-drop ALL --cap-add DAC_OVERRIDE",
                         "--security-opt no-new-privileges", "--rm");
         assertThat(cmd).endsWith("mvn", "-o", "test");
     }
