@@ -1,0 +1,16 @@
+{
+  "enableAllProjectMcpServers": false,
+  "enabledMcpjsonServers": ["code-sentinela"],
+  "permissions": {
+    "allow": [
+      "mcp__code-sentinela__ler_pull_request",
+      "mcp__code-sentinela__ler_arquivo",
+      "mcp__code-sentinela__buscar_convencoes",
+      "mcp__code-sentinela__listar_convencoes",
+      "mcp__code-sentinela__rodar_testes"
+    ],
+    "ask": [
+      "mcp__code-sentinela__publicar_revisao"
+    ]
+  }
+}

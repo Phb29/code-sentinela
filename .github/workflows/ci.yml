@@ -1,0 +1,36 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  servidor-mcp:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+          cache: maven
+      # Inclui o teste de integração do sandbox (o runner do GitHub tem Docker).
+      - run: mvn -B -f servidor-mcp/pom.xml verify
+        env:
+          SENTINELA_TESTE_DOCKER: "1"
+
+  finetune:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: finetune
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.13.5"
+      - run: uv sync --frozen
+      - run: uv run pytest -q

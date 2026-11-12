@@ -1,0 +1,20 @@
+[project]
+name = "sentinela-finetune"
+version = "0.1.0"
+description = "Dataset por injeção de bugs, avaliação e fine-tune (LoRA) do revisor do Code Sentinela"
+requires-python = ">=3.13"
+dependencies = [
+    "httpx==0.28.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==9.2.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+testpaths = ["testes"]
+pythonpath = ["."]

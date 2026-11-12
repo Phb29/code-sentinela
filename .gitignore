@@ -1,0 +1,27 @@
+# Java
+servidor-mcp/target/
+
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+
+# Fine-tune: dados gerados, resultados e modelos (grandes demais para o Git)
+finetune/dados/
+finetune/fontes/
+finetune/resultados/
+*.gguf
+
+# Segredos
+.env
+.env.*
+
+# Configuração local do Claude Code (a do projeto, .claude/settings.json, entra no Git)
+.claude/settings.local.json
+
+# Editor e sistema
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

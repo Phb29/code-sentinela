@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Log só em arquivo. A saída padrão (console) é o canal do protocolo MCP com o Claude Code:
+     qualquer texto a mais ali quebraria a comunicação. -->
+<configuration>
+  <property name="ARQUIVO" value="${java.io.tmpdir}/code-sentinela.log"/>
+  <appender name="ARQUIVO" class="ch.qos.logback.core.FileAppender">
+    <file>${ARQUIVO}</file>
+    <encoder>
+      <pattern>%d{HH:mm:ss.SSS} %-5level %logger{30} - %msg%n</pattern>
+    </encoder>
+  </appender>
+  <root level="WARN">
+    <appender-ref ref="ARQUIVO"/>
+  </root>
+  <logger name="io.github.phb29.sentinela" level="INFO"/>
+</configuration>

@@ -1,0 +1,31 @@
+# O Claude Code conversa com este servidor pela saída padrão (STDIO).
+# Por isso NADA pode ser impresso no console além das mensagens do protocolo MCP:
+# sem banner, sem log no console. O log vai para um arquivo.
+spring:
+  main:
+    web-application-type: none
+    banner-mode: off
+  ai:
+    mcp:
+      server:
+        name: code-sentinela
+        version: 0.1.0
+        stdio: true
+        type: SYNC
+        instructions: >
+          Ferramentas para revisar pull requests de projetos Java/Spring:
+          ler o PR, ler arquivos, buscar convenções do time, rodar os testes num sandbox
+          e publicar a revisão com comentários nas linhas.
+
+# O log vai só para arquivo (ver logback-spring.xml): %TEMP%\code-sentinela.log
+
+sentinela:
+  github-api: https://api.github.com
+  github-token: ${GITHUB_TOKEN:}
+  max-linhas-patch: 800
+  sandbox:
+    imagem-maven: maven:3.9.11-eclipse-temurin-25
+    memoria: 2g
+    cpus: "2"
+    tempo-limite: 5m
+    volume-cache: sentinela-m2

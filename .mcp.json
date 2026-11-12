@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "code-sentinela": {
+      "type": "stdio",
+      "command": "java",
+      "args": ["-jar", "servidor-mcp/target/code-sentinela.jar"],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN:-}"
+      }
+    }
+  }
+}
